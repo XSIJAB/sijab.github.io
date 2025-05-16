@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembagian Kelompok</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #b2ebf2);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      color: #00796b;
+    }
+
+    .btn-generate {
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-generate:hover {
+      background-color: #004d40;
+    }
+
+    .groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .group {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .group h2 {
+      margin-top: 0;
+      color: #00695c;
+    }
+
+    .group ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .group ul li {
+      background: #e0f2f1;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pembagian Kelompok Siswa Acak</h1>
+  <button class="btn-generate" onclick="generateGroups()">Acak Kelompok</button>
+
+  <div class="groups" id="groupContainer"></div>
+
+  <script>
+    function generateGroups() {
+      const totalStudents = 36;
+      const totalGroups = 6;
+      const students = Array.from({ length: totalStudents }, (_, i) => i + 1);
+
+      for (let i = students.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [students[i], students[j]] = [students[j], students[i]];
+      }
+
+      const groupContainer = document.getElementById("groupContainer");
+      groupContainer.innerHTML = "";
+
+      for (let i = 0; i < totalGroups; i++) {
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "group";
+
+        const groupTitle = document.createElement("h2");
+        groupTitle.textContent = `Kelompok ${i + 1}`;
+        groupDiv.appendChild(groupTitle);
+
+        const list = document.createElement("ul");
+
+        for (let j = 0; j < totalStudents / totalGroups; j++) {
+          const li = document.createElement("li");
+          li.textContent = `Siswa ${students[i * (totalStudents / totalGroups) + j]}`;
+          list.appendChild(li);
+        }
+
+        groupDiv.appendChild(list);
+        groupContainer.appendChild(groupDiv);
+      }
+    }
+
+    window.onload = generateGroups;
+  </script>
+
+</body>
+</html>

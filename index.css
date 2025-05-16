@@ -1,75 +1,48 @@
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  padding: 0;
   font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
   overflow: hidden;
-  animation: fadeIn 1s ease-in;
+  animation: fadeIn 1.2s ease-in-out;
+  position: relative;
 }
 
-body::after {
+body::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
   background-image: radial-gradient(#06f88b 1px, transparent 1px),
                     radial-gradient(#00fcff 1px, transparent 1px),
                     radial-gradient(#ff00b9 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: moveBackground 30s linear infinite;
-  opacity: 0.1;
+  background-size: 60px 60px;
+  animation: moveBackground 25s linear infinite;
+  opacity: 0.06;
   z-index: 0;
 }
 
-@keyframes moveBackground {
-  from {
-    background-position: 0 0, 0 0, 0 0;
-  }
-  to {
-    background-position: 500px 500px, 400px 400px, 300px 300px;
-}
-}
-
-.character {
-  position: absolute;
-  bottom: 0;
-  right: 20px;
-  width: 120px;
-  animation: floatY 3s ease-in-out infinite;
+.title {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px #06f88b;
   z-index: 2;
-}
-
-@keyframes floatY {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 .container {
   display: grid;
-  grid-template-columns: repeat(2, 120px);
-  grid-template-rows: repeat(2, 120px);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 20px;
+  width: 90%;
+  max-width: 600px;
+  z-index: 2;
 }
 
 a {
@@ -77,17 +50,21 @@ a {
 }
 
 .item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  color: #fff;
+  background: #111;
+  color: white;
   font-weight: 600;
   text-align: center;
-  background-color: #111;
+  padding: 20px 10px;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border: 2px solid transparent;
+}
+
+.item:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px currentColor;
 }
 
 .item::before {
@@ -95,7 +72,7 @@ a {
   position: absolute;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, currentColor 0%, transparent 60%);
+  background: radial-gradient(circle, currentColor 0%, transparent 70%);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
@@ -108,38 +85,48 @@ a {
   transform: translate(-50%, -50%) scale(1.2);
 }
 
-.item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px currentColor;
-  text-shadow: 0 0 10px currentColor;
+.item:nth-child(1) { color: #06f88b; border-color: #06f88b; }
+.item:nth-child(2) { color: #00fcff; border-color: #00fcff; }
+.item:nth-child(3) { color: #ffd700; border-color: #ffd700; }
+.item:nth-child(4) { color: #ff00b9; border-color: #ff00b9; }
+.item:nth-child(5) { color: #ff6f00; border-color: #ff6f00; }
+.item:nth-child(6) { color: #8a2be2; border-color: #8a2be2; }
+
+.character {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  width: 100px;
+  z-index: 1;
+  animation: floatY 3s ease-in-out infinite;
 }
 
-.item:nth-child(1) {
-  border: 2px solid #06f88b;
-  color: #06f88b;
-}
-.item:nth-child(2) {
-  border: 2px solid #00fcff;
-  color: #00fcff;
-}
-.item:nth-child(3) {
-  border: 2px solid #6500ff;
-  color: #6500ff;
-}
-.item:nth-child(4) {
-  border: 2px solid #ff00b9;
-  color: #ff00b9;
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
 
-@media (max-width: 500px) {
-  .container {
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    transform: scale(0.9);
+@keyframes moveBackground {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 500px 500px, 400px 400px, 300px 300px; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 24px;
   }
+
   .item {
-    width: 100px;
-    height: 100px;
     font-size: 14px;
+    padding: 15px 8px;
+  }
+
+  .character {
+    width: 80px;
   }
 }
