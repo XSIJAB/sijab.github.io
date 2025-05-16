@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acak Kelompok Presentasi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+    }
+
+    .result {
+      font-size: 3rem;
+      color: #333;
+      background: #fff;
+      padding: 30px 60px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+      transition: transform 0.5s ease;
+    }
+
+    .button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff7e5f;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #eb5757;
+      transform: scale(1.05);
+    }
+
+    .shake {
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      20% { transform: translate(-2px, -3px) rotate(-2deg); }
+      40% { transform: translate(-1px, 2px) rotate(2deg); }
+      60% { transform: translate(3px, 1px) rotate(0deg); }
+      80% { transform: translate(-2px, -1px) rotate(1deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Acak Kelompok Presentasi</h1>
+  <div id="output" class="result">Kelompok ?</div>
+  <button class="button" onclick="acakKelompok()">Acak Kelompok</button>
+
+  <script>
+    function acakKelompok() {
+      const output = document.getElementById("output");
+      const kelompok = Math.floor(Math.random() * 6) + 1; // angka 1 - 6
+      output.textContent = `Kelompok ${kelompok}`;
+      output.classList.remove("shake");
+      void output.offsetWidth; // reset animasi
+      output.classList.add("shake");
+    }
+  </script>
+
+</body>
+</html>
